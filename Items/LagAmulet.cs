@@ -27,47 +27,57 @@ namespace LagAmulet.Items
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            LagAmuletPlayer modPlayer = player.GetModPlayer<LagAmuletPlayer>();
-            double fps = modPlayer.GetFps();
+		{
+			LagAmuletPlayer modPlayer = player.GetModPlayer<LagAmuletPlayer>();
+			double fps = modPlayer.GetFps();
 
-            if (fps < 21) // If FPS is under 20
-            {
-                player.endurance += 0.25f; // Apply 25% damage reduction.
-            }
-            else if (fps < 11) // If FPS is under 10
-            {
-                player.endurance += 0.50f; // Apply 50% damage reduction.
-            }
-            else if (fps < 2)
-            {
-                player.endurance = 0.99f;
-            }
-        }
+			player.endurance -= player.GetModPlayer<LagAmuletPlayer>().enduranceBonus;
+			player.GetModPlayer<LagAmuletPlayer>().enduranceBonus = 0f;
+
+			if (fps < 2)
+			{
+				player.GetModPlayer<LagAmuletPlayer>().enduranceBonus = 0.99f;
+			}
+			else if (fps < 11) 
+			{
+				player.GetModPlayer<LagAmuletPlayer>().enduranceBonus = 0.50f;
+			}
+			else if (fps < 21)
+			{
+				player.GetModPlayer<LagAmuletPlayer>().enduranceBonus = 0.25f;
+			}
+
+			// Apply the calculated bonus
+			player.endurance += player.GetModPlayer<LagAmuletPlayer>().enduranceBonus;
+		}
+
 	}
 }
 
 public class LagAmuletPlayer : ModPlayer
 {
-    private int frameCounter;
-    private int lastFrameCount;
-    private double lastUpdateTime;
-    private double fps;
+    private double lastUpdateTime = -1;
+    private double fps = 0;
 
     public override void PostUpdate()
     {
-        frameCounter++;
-
-        if (Main.time - lastUpdateTime > 60)
+        double currentTime = (double)Main.GameUpdateCount / 60.0; // there are 60 ticks per second
+        if (lastUpdateTime >= 0)
         {
-            lastUpdateTime = Main.time;
-            fps = frameCounter;
-            frameCounter = 0;
+            double deltaTime = currentTime - lastUpdateTime;
+            fps = 1 / deltaTime; // Calculate FPS
         }
+        lastUpdateTime = currentTime;
     }
 
     public double GetFps()
     {
         return fps;
+    }
+
+	public float enduranceBonus = 0f;
+    public override void ResetEffects()
+    {
+        enduranceBonus = 0f;
     }
 }
