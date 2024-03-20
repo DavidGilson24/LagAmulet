@@ -1,0 +1,3 @@
+displayName = The Lag Amulet
+author = LuckyCat240
+version = 0.1

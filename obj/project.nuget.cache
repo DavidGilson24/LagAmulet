@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZBziQajgzoMjTsmhqTgt3X9Lqio7yNEjd8D7ZBimL9+4FWqnYG/hpdt7lxuWGlclB0O59j3KEN0sPZjaLuvNgg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\gilso\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\LagAmulet\\LagAmulet.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gilso\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

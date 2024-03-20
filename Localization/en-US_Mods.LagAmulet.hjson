@@ -1,0 +1,12 @@
+# This file will automatically update with entries for new content after a build and reload
+
+Items: {
+	LagAmulet: {
+		DisplayName: The Lag Amulet
+		Tooltip:
+			'''
+			You feel more powerful.. as your frames drop
+			Now you can prove people that you were actually lagging.
+			'''
+	}
+}
